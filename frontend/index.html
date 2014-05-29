@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app='exe05'> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -21,6 +21,10 @@
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="js/vendor/angular.min.js"></script>
+        <script src="js/vendor/angular-cookies.min.js"></script>
+        <script src="js/vendor/ui-bootstrap-tpls-0.11.0.min.js"></script>
+        <script src="js/controllers.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -49,34 +53,49 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6" ng-controller='LoginController'>
           <h2>Login</h2>
-          <form role="form">
-            <div class="form-group">
-                <label for="">Email address</label>
-                <input type="text" placeholder="Email" class="form-control">
+          <form name="loginForm" role="form" ng-submit='submitForm()' novalidate>
+            <div class="form-group" 
+                 ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+                <label for="login-email">Email address</label>
+                <input id="login-email" type="email" name="email" placeholder="Email" class="form-control" 
+                       ng-model='login.email' required>
+                <p ng-show="loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">Enter a valid email.</p>
             </div>
-            <div class="form-group">
+            <div class="form-group"
+                 ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
                 <label for="">Password</label>
-                <input type="password" placeholder="Password" class="form-control">
+                <input name="password" type="password" placeholder="Password" class="form-control" 
+                       ng-model="login.password" required>
+                <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">Password is required.</p>
             </div>
             <button type="submit" class="btn btn-primary btn-default">Sign in</button>
           </form>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6" ng-controller="RegisterController">
           <h2>Register</h2>
-          <form role="form">
-            <div class="form-group">
+          <form name="regForm" role="form" ng-submit="submitForm()" novalidate>
+            <div class="form-group"
+                 ng-class="{ 'has-error' : regForm.email.$invalid && !regForm.email.$pristine }">
                 <label for="regInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="regInputEmail1" placeholder="Email">
+                <input name="email" type="email" class="form-control" id="regInputEmail1" placeholder="Email"
+                       ng-model="register.email" required>
+                <p ng-show="regForm.email.$invalid && !regForm.email.$pristine" class="help-block">Enter a valid email.</p>
             </div>
-            <div class="form-group">
+            <div class="form-group"
+                 ng-class="{ 'has-error' : regForm.fullname.$invalid && !regForm.fullname.$pristine }">
                 <label for="regInputFullname">Fullname</label>
-                <input type="fullname" class="form-control" id="regFullname" placeholder="Fullname">
+                <input name="fullname" type="fullname" class="form-control" id="regFullname" placeholder="Fullname"
+                       ng-model="register.fullname" required>
+                <p ng-show="regForm.fullname.$invalid && !regForm.fullname.$pristine" class="help-block">Fullname is required.</p>
             </div>
-            <div class="form-group">
+            <div class="form-group"
+                 ng-class="{ 'has-error' : regForm.password.$invalid && !regForm.password.$pristine }">
                 <label for="regInputPassword1">Password</label>
-                <input type="password" class="form-control" id="regInputPassword1" placeholder="Password">
+                <input name="password" type="password" class="form-control" id="regInputPassword1" placeholder="Password"
+                       ng-model="register.password" ng-minlength="6" ng-pattern="/(?=.*\d)(?=.*[a-zA-Z]).*/" required>
+                <p ng-show="regForm.password.$invalid && !regForm.password.$pristine" class="help-block">Enter valid password (at least 6 characters, contains letter and numerical digit)</p>
             </div>
             <button type="submit" class="btn btn-default">Register</button>
           </form>
@@ -91,13 +110,12 @@
       </footer>
     </div> <!-- /container -->        
 
-        <script src="js/vendor/jquery-1.10.1.min.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/jquery-1.10.1.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
 
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-
-        <script>
-        </script>
+    <script>
+    </script>
     </body>
 </html>
