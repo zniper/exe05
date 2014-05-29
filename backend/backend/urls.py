@@ -25,4 +25,6 @@ urlpatterns = patterns('',
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^authenticate/', Authenticate.as_view(), name="authenticate"),
     url(r'^register/', Register.as_view(), name="register"),
+    url(r'^facebook/', include('django_facebook.urls')),
+    url(r'^accounts/', include('django_facebook.auth_urls')),
 ) + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

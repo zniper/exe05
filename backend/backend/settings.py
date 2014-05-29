@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_facebook',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,6 +53,12 @@ ROOT_URLCONF = 'backend.urls'
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'django_facebook.auth_backends.FacebookBackend',
+    )
+
+
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -59,6 +66,19 @@ TEMPLATE_LOADERS = (
     )
 
 TEMPLATE_DIRS = os.path.join(BASE_DIR, 'templates')
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django_facebook.context_processors.facebook',
+    'django.core.context_processors.request',
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages"
+    )
+
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -71,6 +91,9 @@ DATABASES = {
         'PASSWORD': 'justpwd',
     }
 }
+
+AUTH_USER_MODEL = 'django_facebook.FacebookCustomUser'
+AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -101,3 +124,9 @@ STATICFILES_FINDERS = (
     )
 
 STATIC_URL = '/static/'
+
+
+# FACEBOOK CONFIGURATION
+
+FACEBOOK_APP_ID = '661094743944475'
+FACEBOOK_APP_SECRET = 'eda9a0d76a4fe148207b7b0448401a4b'
