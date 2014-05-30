@@ -5,7 +5,7 @@ from django_facebook import signals
 from django_facebook.registration_backends import FacebookRegistrationBackend
 from django_facebook.utils import get_user_model
 
-from utils import get_token
+from utils import create_token
 
 
 class RegistrationBackend(FacebookRegistrationBackend):
@@ -38,7 +38,7 @@ class RegistrationBackend(FacebookRegistrationBackend):
         next_redirect = request.GET.get('ref', '')
         if next_redirect:
             if user:
-                token = get_token(user)
+                token = create_token(user)
                 next_redirect += '#?token=' + token
                 next_redirect += '&uid=' + str(user.id)
                 next_redirect += '&res=1'

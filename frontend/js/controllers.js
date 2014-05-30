@@ -18,6 +18,7 @@ exe05Module.controller('LoginController', function($scope, $http, $cookies, $loc
                             setCredentials(data.uid, data.token);
                             goNext();
                         } else {
+                            $scope.showAlert = true;
                         }
                     });
             }
