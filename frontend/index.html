@@ -97,8 +97,12 @@
                        ng-model="register.password" ng-minlength="6" ng-pattern="/(?=.*\d)(?=.*[a-zA-Z]).*/" required>
                 <p ng-show="regForm.password.$invalid && !regForm.password.$pristine" class="help-block">Enter valid password (at least 6 characters, contains letter and numerical digit)</p>
             </div>
-            <button type="submit" class="btn btn-default">Register</button>
+            <div>
+                <a class="btn btn-warning btn-medium"  href="/facebook/connect?fullname={{register.fullname}}&email={{register.email}}&password={{register.password}}"
+                   ng-class="{ 'disabled' : regForm.$invalid }">Register</a>
+            </div>
           </form>
+
 
        </div>
       </div>

@@ -23,23 +23,18 @@ exe05Module.controller('LoginController', function($scope, $http, $cookies){
         }
     });
 
-exe05Module.controller('RegisterController', function($scope, $http, $cookies){
+exe05Module.controller('RegisterController', function($scope, $http, $cookies, $location){
         $scope.register = { email: '', fullname: '', password: '' };
         $scope.submitForm = function() {
             if ($scope.regForm.$valid) {
                 names = $scope.register.fullname.split(' ');
-                var data = { email: $scope.register.email,
-                             username: $scope.register.email,
-                             first_name: names.splice(0, 1),
-                             last_name: names.join(' '),
-                             password: $scope.register.password
-                           }
-                $http.post('/register/', data).
-                    success(function(data, code) {
-                        if (code == 201) {
-                            alert('Account succesfully registered');
-                        }
-                    });
+                var query = 'email=' + $scope.register.email + 
+                            '&username=' + $scope.register.email +
+                            '&first_name=' + names.splice(0, 1) +
+                            '&last_name=' + names.join(' ') +
+                            '&password=' + $scope.register.password +
+                            '&origin=' + window.location.href;
+                $location.path('/facebook/connect/?'+query).replace();
             }
         }
     });

@@ -7,6 +7,8 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 
+import handlers
+
 
 def authenticate_email(email, password):
     """ Verify credential using email instead of username """
