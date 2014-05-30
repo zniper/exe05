@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'django_facebook',
+    'fbconnect',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -122,6 +123,13 @@ STATICFILES_FINDERS = (
 
 STATIC_URL = '/static/'
 
+# REST FRAMEWORK
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 # FACEBOOK CONFIGURATIONS
 

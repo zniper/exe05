@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from models import FacebookUserPicture, APIToken
+
+admin.site.register(FacebookUserPicture)
+admin.site.register(APIToken)

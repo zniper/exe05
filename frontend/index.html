@@ -42,8 +42,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li class=""><a href="/register">Register</a></li>
+            <li class="active"><a href="/">Home</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
@@ -98,7 +97,7 @@
                 <p ng-show="regForm.password.$invalid && !regForm.password.$pristine" class="help-block">Enter valid password (at least 6 characters, contains letter and numerical digit)</p>
             </div>
             <div>
-                <a class="btn btn-warning btn-medium"  href="/facebook/connect?fullname={{register.fullname}}&email={{register.email}}&password={{register.password}}"
+                <a class="btn btn-warning btn-medium"  ng-href="/facebook/connect?fullname={{register.fullname}}&email={{register.email}}&password={{register.password}}&ref={{register.ref}}"
                    ng-class="{ 'disabled' : regForm.$invalid }">Register</a>
             </div>
           </form>

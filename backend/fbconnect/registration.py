@@ -1,6 +1,11 @@
+from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
+
 from django_facebook import signals
 from django_facebook.registration_backends import FacebookRegistrationBackend
 from django_facebook.utils import get_user_model
+
+from utils import get_token
 
 
 class RegistrationBackend(FacebookRegistrationBackend):
@@ -26,7 +31,20 @@ class RegistrationBackend(FacebookRegistrationBackend):
                                      user=new_user,
                                      request=request)
         # don't need to auto authenticate
-        #authenticated_user = self.authenticate(request, username, password)
-        #return authenticated_user
+        authenticated_user = self.authenticate(request, username, password)
+        return authenticated_user
 
-        return new_user
+    def post_connect(self, request, user, action):
+        next_redirect = request.GET.get('ref', '')
+        if next_redirect:
+            if user:
+                token = get_token(user)
+                next_redirect += '#?token=' + token
+                next_redirect += '&uid=' + str(user.id)
+                next_redirect += '&res=1'
+            else:
+                next_redirect += '#?res=0'
+            return redirect(next_redirect)
+
+        return super(RegistrationBackend, self).post_connect(
+            request, user, action)
