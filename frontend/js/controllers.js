@@ -1,12 +1,7 @@
-var exe05Module = angular.module('exe05', ['ui.bootstrap', 'ngCookies']);
+var exe05Controllers = angular.module('exe05Controllers', ['ngCookies']);
 
-
-exe05Module.config(function($httpProvider) {
-    $httpProvider.defaults.useXDomain = true;
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-});
-
-exe05Module.controller('LoginController', function($scope, $http, $cookies, $location){
+exe05Controllers.controller('LoginController', 
+    function($scope, $http, $cookies, $location) {
         $scope.login = { email: '', password: '' };
         $scope.submitForm = function() {
             if ($scope.loginForm.$valid) {
@@ -31,9 +26,12 @@ exe05Module.controller('LoginController', function($scope, $http, $cookies, $loc
 
         var goNext = function() {
             // ughh, a little non-angularjs
+            /*
             var path = window.location.pathname.split('/');
-            path = path.splice(0, path.length-1).join('/') + '/friends.html';
+            path = path.splice(0, path.length-1).join('/') + '/friends';
             window.location.pathname = path;
+            */
+            $location.path('/friends');
         }
 
         var init = function() {
@@ -49,18 +47,22 @@ exe05Module.controller('LoginController', function($scope, $http, $cookies, $loc
         };
 
         init();
-
     });
 
-exe05Module.controller('RegisterController', function($scope, $http, $cookies, $location){
-        $scope.register = { email: '', fullname: '', password: '', ref: $location.absUrl() };
+exe05Controllers.controller('RegisterController', 
+    function($scope, $http, $cookies, $location){
+        $scope.register = {
+            email: '', 
+            fullname: '',
+            password: '', 
+            ref: $location.absUrl()
+        };
         $scope.submitForm = function() {
         }
     });
 
-
-exe05Module.controller('FriendListController', function($scope, $http, $cookies) {
-
+exe05Controllers.controller('FriendListController', 
+    function($scope, $http, $cookies) {
         $scope.updateName = function(index) {
             data = $scope.friends[index];
             config = {headers: {'X-CSRFToken': $cookies.csrftoken }};
@@ -91,8 +93,8 @@ exe05Module.controller('FriendListController', function($scope, $http, $cookies)
     });
 
 
-exe05Module.controller('ProfileController', function($scope, $http, $cookies) {
-
+exe05Controllers.controller('ProfileController', 
+    function($scope, $http, $cookies) {
         var getProfile= function() {
             $http.get('/users/'+$cookies.uid+'?token='+$cookies.token).
                 success(function(data, status) {
@@ -107,7 +109,6 @@ exe05Module.controller('ProfileController', function($scope, $http, $cookies) {
                     }
                 });
         }
-
         var init = function() {
             getProfile();
         };
@@ -115,12 +116,13 @@ exe05Module.controller('ProfileController', function($scope, $http, $cookies) {
         init();
     });
 
-exe05Module.controller('NavigationController', function($scope, $http, $cookies) {
+exe05Controllers.controller('NavigationController', 
+    function($scope, $cookies, $location) {
+
+        $scope.anon = ($location.path() == '/login');
 
         var backHome = function() {
-            var path = window.location.pathname.split('/');
-            path = path.splice(0, path.length-1).join('/') + '/index.html';
-            window.location.pathname = path;
+            $location.path('/');
         };
 
         $scope.logOut= function() {

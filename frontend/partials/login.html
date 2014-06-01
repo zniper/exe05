@@ -1,0 +1,55 @@
+      <div class="row">
+        <div class="col-lg-6" ng-controller='LoginController'>
+          <h2>Login</h2>
+          <div class="alert alert-danger" ng-show="showAlert">Login Failed. Please verify entered e-mail and password</div>
+          <form name="loginForm" role="form" ng-submit='submitForm()' novalidate>
+            <div class="form-group" 
+                 ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+                <label for="login-email">Email address</label>
+                <input id="login-email" type="email" name="email" placeholder="Email" class="form-control" 
+                       ng-model='login.email' ng-focus="showAlert=false" required>
+                <p ng-show="loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">Enter a valid email.</p>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
+                <label for="">Password</label>
+                <input name="password" type="password" placeholder="Password" class="form-control" 
+                       ng-model="login.password" ng-focus="showAlert=false" required>
+                <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">Password is required.</p>
+            </div>
+            <button type="submit" class="btn btn-primary btn-default">Sign in</button>
+          </form>
+        </div>
+
+        <div class="col-lg-6" ng-controller="RegisterController">
+          <h2>Register</h2>
+          <form name="regForm" role="form" ng-submit="submitForm()" novalidate>
+            <div class="form-group"
+                 ng-class="{ 'has-error' : regForm.email.$invalid && !regForm.email.$pristine }">
+                <label for="regInputEmail1">Email address</label>
+                <input name="email" type="email" class="form-control" id="regInputEmail1" placeholder="Email"
+                       ng-model="register.email" required>
+                <p ng-show="regForm.email.$invalid && !regForm.email.$pristine" class="help-block">Enter a valid email.</p>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error' : regForm.fullname.$invalid && !regForm.fullname.$pristine }">
+                <label for="regInputFullname">Fullname</label>
+                <input name="fullname" type="fullname" class="form-control" id="regFullname" placeholder="Fullname"
+                       ng-model="register.fullname" required>
+                <p ng-show="regForm.fullname.$invalid && !regForm.fullname.$pristine" class="help-block">Fullname is required.</p>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error' : regForm.password.$invalid && !regForm.password.$pristine }">
+                <label for="regInputPassword1">Password</label>
+                <input name="password" type="password" class="form-control" id="regInputPassword1" placeholder="Password"
+                       ng-model="register.password" ng-minlength="6" ng-pattern="/(?=.*\d)(?=.*[a-zA-Z]).*/" required>
+                <p ng-show="regForm.password.$invalid && !regForm.password.$pristine" class="help-block">Enter valid password (at least 6 characters, contains letter and numerical digit)</p>
+            </div>
+            <div>
+                <a class="btn btn-warning btn-medium"  ng-href="/facebook/connect?fullname={{register.fullname}}&email={{register.email}}&password={{register.password}}&ref={{register.ref}}"
+                   ng-class="{ 'disabled' : regForm.$invalid }">Register</a>
+            </div>
+          </form>
+       </div>
+      </div>
+

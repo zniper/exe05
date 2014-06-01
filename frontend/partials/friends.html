@@ -1,0 +1,52 @@
+      <ol class="breadcrumb">
+        <li><a href="">Home</a></li>
+        <li class="active">Friend List</li>
+      </ol>
+      <!-- Example row of columns -->
+      <div class="row">
+        
+        <div class="col-sm-4" ng-controller="ProfileController">
+            <h4>Your Profile</h4>
+            <div id="profile" class="panel panel-info">
+                <div class="panel-heading">{{fn}} {{ln}}</div>
+                <div class="panel-body">
+                    <div class="row" ng-repeat="(key, value) in profile">
+                        <div class="key">{{key}}</div>
+                        <div class="value">{{value}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <h4>Your Friends</h4>
+            <table class="table table-striped" ng-controller="FriendListController">
+                <thead> 
+                    <tr>
+                        <th>Photo</th>
+                        <th>Fullname</th>
+                        <th></th>
+                        <th>Facebook ID</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    <tr ng-repeat="friend in friends">
+                        <td><img class="thumbnail" src="img/avatar.jpg"></td>
+                        <td>
+                            <span class="contact-name" ng-show="!editName">{{friend.name}}</span>
+                            <input class="form-control" type="text" 
+                                   ng-model="friend.name" ng-show="editName">
+                        </td>
+                        <td>
+                            <button class="btn" ng-click="editName = !editName; flag=friend.name" ng-show="!editName">Edit</button>
+                            <button class="btn" ng-click="updateName($index); editName = !editName"
+                                    ng-show="editName">Submit</button>
+                        </td>
+                        <td><span class="facebook-id">{{friend.facebook_id}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+      </div>
